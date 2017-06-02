@@ -1,27 +1,26 @@
 import express from 'express'
-
+import mongoose from 'mongoose'
+import morgan from 'morgan'
+// api routes import
+import ApiRoutes from './routes/ApiRoutes'
+// define port and app
 const PORT = 8080
 const app = express()
-
+// setup database connection
+const db = 'mongodb://127.0.0.1/url_data'
+mongoose.connect(db)
+// set up morgan logger
+app.use(morgan('dev'))
+// set view directory and default view engine
 app.set('views', './views')
 app.set('view engine', 'pug')
-
-app.get('/', (req, res) => {
-  res.render('index', { title: 'Hey', message: 'Hello there' })
+// include api routes
+app.use('/new', ApiRoutes(app, express))
+// main route
+app.get('*', (req, res) => {
+  res.render('index', { title: 'Welcome', message: 'Hello there' })
 })
-
-app.get('/new/*', (req, res) => {
-  const url = req.params[0]
-  // Check if the passed in url is a valid url(re)
-  //  if not, return error message(json)
-  // else .....
-  // Check if the passed url is already in the database
-  //   if it is, return that url's shortened version(json)
-  //   else, create a shortened url of the passed in url and add
-  //    data to database, then return the shortened version(json)
-  res.render('response', { title: 'Hey', response: url })
-})
-
+// start server
 app.listen(PORT, (err) => {
   if (err) console.log(err)
   else console.log(`Listening on port: ${PORT}`)
