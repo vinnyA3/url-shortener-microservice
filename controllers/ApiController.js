@@ -7,10 +7,10 @@ const requestLens = _.lensProp('params')
 
 const getRequestParams = _.curry((lens, reqObj) => _.view(lens, reqObj))
 
-const validateUrl = _.curry((pattern, url) => pattern.test(url))
+const validate = _.curry((pattern, url) => pattern.test(url))
 
 const isValidUrl = _.compose(
-  validateUrl(match),
+  validate(match),
   _.head,
   getRequestParams(requestLens)
 )
