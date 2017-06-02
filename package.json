@@ -4,7 +4,6 @@
   "description": "A url shortening microservice",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm-run-all --parallel lint:watch open:src",
     "open:src": "babel-node ./server.js",
     "lint": "esw ./*.js",
@@ -20,8 +19,10 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.3",
+    "folktale": "^2.0.0-beta1",
     "mongoose": "^4.10.4",
-    "query-string": "^4.3.4"
+    "query-string": "^4.3.4",
+    "ramda": "^0.24.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -36,6 +37,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-watch": "^3.1.0",
+    "morgan": "^1.8.2",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
