@@ -1,10 +1,10 @@
-import {getUrlData} from '../controllers/ApiController'
+import getShortenedUrl from '../controllers/ApiController'
 
 export default (app, express) => {
   // create router instance
   const router = express.Router()
   router.route('/*')
-    .get(getUrlData)
+    .get(getShortenedUrl)
   // return router obj
   return router
 }
