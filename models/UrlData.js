@@ -1,8 +1,9 @@
-import {model, Schema} from 'mongoose'
+import mongoose from 'mongoose'
+const {Schema} = mongoose
 
 const urlDataSchema = new Schema({
   url: String,
   shortenedUrl: String
 })
 
-export default model('UrlData', urlDataSchema)
+module.exports = mongoose.model('UrlData', urlDataSchema)
