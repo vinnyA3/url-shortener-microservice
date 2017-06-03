@@ -1,22 +1,23 @@
 import _ from 'ramda'
+
 /* eslint-disable */
 const match = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
 /* eslint-enable */
 
-const requestLens = _.lensProp('params')
+// getRequestParams :: Object -> String
+const getRequestParams = req => _.prop('params', req)
 
-const getRequestParams = _.curry((lens, reqObj) => _.view(lens, reqObj))
+// validate :: RegEx -> String -> Boolean
+const validate = _.curry((pattern, str) => pattern.test(str))
 
-const validate = _.curry((pattern, url) => pattern.test(url))
-
-const isValidUrl = _.compose(
+// isUrlValid :: Object -> Boolean
+const isUrlValid = _.compose(
   validate(match),
   _.head,
-  getRequestParams(requestLens)
+  getRequestParams
 )
 
-export const getUrlData = (req, res) => {
-  const response = isValidUrl(req) ? 'Valid Url' : 'Invalid Url'
+export default (req, res) => {
+  const response = isUrlValid(req) ? 'Valid Url' : 'Invalid Url'
   return res.render('response', { title: 'Response Page', response })
 }
-
