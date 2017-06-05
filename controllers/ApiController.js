@@ -32,7 +32,7 @@ const validateUrl = url => {
   ? Result.Ok(url) : Result.Error('Invalid Url')
 }
 
-// shortenedUrl :: Object -> Boolean
+// shortenedUrl :: Object -> Result
 const shortenedUrl = _.compose(
   validateUrl,
   chain(_.head),
