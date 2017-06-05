@@ -19,10 +19,11 @@ const getRequestParams = req => _.prop('params', req)
 // validate :: RegEx -> String -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
 
-const validateUrl = _.curry(url => {
+// validateUrl :: String -> Result
+const validateUrl = url => {
   return validate(match, url)
   ? Result.Ok(url) : Result.Error('Invalid Url')
-})
+}
 
 // isUrlValid :: Object -> Boolean
 const shortenedUrl = _.compose(
