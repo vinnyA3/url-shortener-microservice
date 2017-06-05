@@ -20,9 +20,7 @@
   "dependencies": {
     "express": "^4.15.3",
     "mongoose": "^4.10.4",
-    "query-string": "^4.3.4",
-    "ramda": "^0.24.1",
-    "ramda-fantasy": "^0.8.0"
+    "ramda": "^0.24.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
