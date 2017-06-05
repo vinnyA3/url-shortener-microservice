@@ -13,11 +13,8 @@ const match = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(
 const chain = _.curry((fn, container) =>
   container.chain(fn)) */
 
-// getRequestParams :: Object -> String
-const getRequestParams = req => _.prop('params', req)
-
 // getUrlFromRequest :: Object -> String
-const getUrlFromRequest = obj => _.head
+const getUrlFromRequestParams = req => _.head(_.prop('params', req))
 
 // validate :: RegEx -> String -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
@@ -31,8 +28,7 @@ const validateUrl = url => {
 // shortenedUrl :: Object -> Boolean
 const shortenedUrl = _.compose(
   validateUrl,
-  getUrlFromRequest,
-  getRequestParams
+  getUrlFromRequestParams
 )
 
 export default (req, res) => {
