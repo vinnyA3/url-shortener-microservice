@@ -36,6 +36,6 @@ const shortenedUrl = _.compose(
 )
 
 export default (req, res) => {
-  const response = shortenedUrl(req).merge()
+  const response = shortenedUrl(req)
   return res.render('response', { title: 'Response Page', response })
 }
