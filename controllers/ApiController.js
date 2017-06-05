@@ -27,7 +27,7 @@ const validateUrl = url => {
   ? Result.Ok(url) : Result.Error('Invalid Url')
 }
 
-// isUrlValid :: Object -> Boolean
+// shortenedUrl :: Object -> Boolean
 const shortenedUrl = _.compose(
   validateUrl,
   getUrlFromRequest,
