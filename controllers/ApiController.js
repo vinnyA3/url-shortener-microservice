@@ -16,6 +16,7 @@ const chain = _.curry((fn, container) =>
 // getRequestParams :: Object -> String
 const getRequestParams = req => _.prop('params', req)
 
+// getUrlFromRequest :: Object -> String
 const getUrlFromRequest = obj => _.head
 
 // validate :: RegEx -> String -> Boolean
