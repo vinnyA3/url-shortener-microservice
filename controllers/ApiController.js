@@ -20,8 +20,8 @@ const getPropValue = _.curry((prop, obj) => {
   return Maybe.fromNullable(_.prop(prop, obj))
 })
 
-// getUrlFromParams :: Maybe -> Result
-const getUrlFromRequestParams = result => Result.fromMaybe(result, 'Invalid Url')
+// requestParamCheck :: Maybe -> Result
+const requestParamCheck = result => Result.fromMaybe(result, 'Invalid Url')
 
 // validate :: RegEx -> String -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
@@ -36,7 +36,7 @@ const validateUrl = url => {
 const shortenedUrl = _.compose(
   validateUrl,
   chain(_.head),
-  getUrlFromRequestParams,
+  requestParamCheck,
   getPropValue('params')
 )
 
