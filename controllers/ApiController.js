@@ -4,17 +4,24 @@
 //    else, create new shortUrl, save it, then return it
 import _ from 'ramda'
 import Result from 'folktale/data/result'
+import Maybe from 'folktale/data/maybe'
 
 /* eslint-disable */
 const match = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
 /* eslint-enable */
 
-/* chain :: (ObjectA -> ObjectB), M -> ObjectB
-const chain = _.curry((fn, container) =>
-  container.chain(fn)) */
+// chain :: (ObjectA -> ObjectB), M -> ObjectB
+const chain = _.curry((fn, container) => {
+  return container.chain(fn)
+})
 
-// getUrlFromRequest :: Object -> String
-const getUrlFromRequestParams = req => _.head(_.prop('params', req))
+// getPropValue :: (String -> Object) -> Maybe
+const getPropValue = _.curry((prop, obj) => {
+  return Maybe.fromNullable(_.prop(prop, obj))
+})
+
+// getUrlFromParams :: Maybe -> Result
+const getUrlFromRequestParams = result => Result.fromMaybe(result, 'Invalid Url')
 
 // validate :: RegEx -> String -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
@@ -28,10 +35,12 @@ const validateUrl = url => {
 // shortenedUrl :: Object -> Boolean
 const shortenedUrl = _.compose(
   validateUrl,
-  getUrlFromRequestParams
+  chain(_.head),
+  getUrlFromRequestParams,
+  getPropValue('params')
 )
 
 export default (req, res) => {
-  const response = shortenedUrl(req)
+  const response = shortenedUrl(req).merge()
   return res.render('response', { title: 'Response Page', response })
 }
