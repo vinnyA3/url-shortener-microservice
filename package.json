@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "npm-run-all --parallel lint:watch open:src",
-    "open:src": "babel-node ./server.js",
+    "open:src": "nodemon ./server.js --exec babel-node",
     "lint": "esw ./*.js",
     "lint:watch": "npm run lint -- --watch"
   },
