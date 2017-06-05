@@ -16,6 +16,8 @@ const chain = _.curry((fn, container) =>
 // getRequestParams :: Object -> String
 const getRequestParams = req => _.prop('params', req)
 
+const getUrlFromRequest = obj => _.head
+
 // validate :: RegEx -> String -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
 
@@ -28,7 +30,7 @@ const validateUrl = url => {
 // isUrlValid :: Object -> Boolean
 const shortenedUrl = _.compose(
   validateUrl,
-  _.head,
+  getUrlFromRequest,
   getRequestParams
 )
 
