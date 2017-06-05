@@ -29,7 +29,7 @@ const validate = _.curry((pattern, str) => pattern.test(str))
 // validateUrl :: String -> Result
 const validateUrl = url => {
   return validate(match, url)
-  ? Result.Ok(url) : Result.Error('Invalid Url')
+  ? Result.Ok(url) : Result.Error(`Invalid Url: ${url !== '' ? url : 'Empty'}`)
 }
 
 // shortenedUrl :: Object -> Result
