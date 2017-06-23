@@ -3,40 +3,43 @@
 //    the url in the database. ex: if we have, return shortUrl
 //    else, create new shortUrl, save it, then return it
 import _ from 'ramda'
-import Result from 'folktale/data/result'
-import Maybe from 'folktale/data/maybe'
+import Either from 'data.either'
+const { Left, Right } = Either
 
 /* eslint-disable */
 const match = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
 /* eslint-enable */
 
-// chain :: (ObjectA -> ObjectB), M -> ObjectB
-const chain = _.curry((fn, container) => {
-  return container.chain(fn)
-})
+// tap :: a -> a
+const _tap = f => {
+  console.log(f)
+  return f
+}
 
 // getPropValue :: (String -> Object) -> Maybe
 const getPropValue = _.curry((prop, obj) => {
-  return Maybe.fromNullable(_.prop(prop, obj))
+  return Either.fromNullable(_.prop(prop, obj))
 })
 
 // requestParamCheck :: Maybe -> Result
-const requestParamCheck = result => Result.fromMaybe(result, 'Invalid Url')
+const requestParamCheck = result =>
+  result ? Right(result) : Left('Param not found')
 
 // validate :: RegEx -> String -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
 
 // validateUrl :: String -> Result
-const validateUrl = url => {
-  return validate(match, url)
-  ? Result.Ok(url) : Result.Error(`Invalid Url: ${url !== '' ? url : 'Empty'}`)
-}
+const validateUrl = url =>
+  validate(match, url)
+    ? Right(url)
+    : Left(`Invalid Url: ${url !== '' ? url : 'Empty'}`)
 
 // shortenedUrl :: Object -> Result
 const shortenedUrl = _.compose(
-  validateUrl,
-  chain(_.head),
-  requestParamCheck,
+  _tap,
+  _.chain(validateUrl),
+  _tap,
+  _.map(requestParamCheck),
   getPropValue('params')
 )
 
