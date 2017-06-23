@@ -16,7 +16,7 @@
     "express"
   ],
   "author": "vinnyA3",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.15.3",
     "folktale": "1.0.0-SNAPSHOT",
