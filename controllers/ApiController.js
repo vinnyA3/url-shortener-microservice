@@ -1,7 +1,3 @@
-// [] safe get url data from db
-// [] implement boolean logic for if we have/don't have
-//    the url in the database. ex: if we have, return shortUrl
-//    else, create new shortUrl, save it, then return it
 import _ from 'ramda'
 import Either from 'data.either'
 const { Left, Right } = Either
