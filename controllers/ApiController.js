@@ -10,11 +10,11 @@ const map = _.curry((fn, container) =>
 const chain = _.curry((fn, container) =>
   container.chain(fn))
 
-// getPropValue :: (String -> Object) -> Maybe
+// getPropValue :: (String -> Object) -> Either
 const getPropValue = _.curry((prop, obj) =>
   Either.fromNullable(_.prop(prop, obj)))
 
-// requestParamCheck :: Maybe -> Result
+// requestParamCheck :: Right -> Either
 const requestParamCheck = result =>
   result ? Right(result) : Left('Param not found')
 
