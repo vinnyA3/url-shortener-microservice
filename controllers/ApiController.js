@@ -2,20 +2,17 @@ import _ from 'ramda'
 import Either from 'data.either'
 const { Left, Right } = Either
 
-/* eslint-disable */
-const match = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
-/* eslint-enable */
+// map :: (ObjectA -> ObjectB), M -> M[ObjectB]
+const map = _.curry((fn, container) =>
+  container.map(fn))
 
-// tap :: a -> a
-const _tap = f => {
-  console.log(f)
-  return f
-}
+// chain :: (ObjectA -> ObjectB), M -> ObjectB
+const chain = _.curry((fn, container) =>
+  container.chain(fn))
 
 // getPropValue :: (String -> Object) -> Maybe
-const getPropValue = _.curry((prop, obj) => {
-  return Either.fromNullable(_.prop(prop, obj))
-})
+const getPropValue = _.curry((prop, obj) =>
+  Either.fromNullable(_.prop(prop, obj)))
 
 // requestParamCheck :: Maybe -> Result
 const requestParamCheck = result =>
@@ -24,18 +21,19 @@ const requestParamCheck = result =>
 // validate :: RegEx -> String -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
 
-// validateUrl :: String -> Result
+// validateUrl :: Either(String) -> Either
 const validateUrl = url =>
-  validate(match, url)
-    ? Right(url)
-    : Left(`Invalid Url: ${url !== '' ? url : 'Empty'}`)
+  validate(
+    // eslint-disable-next-line
+    /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/,
+    url
+  ) ? Right(url) : Left(`Invalid Url: ${url}`)
 
-// shortenedUrl :: Object -> Result
+// shortenedUrl :: Object -> Either
 const shortenedUrl = _.compose(
-  _tap,
-  _.chain(validateUrl),
-  _tap,
-  _.map(requestParamCheck),
+  chain(validateUrl),
+  chain(requestParamCheck),
+  map(_.prop('0')),
   getPropValue('params')
 )
 
