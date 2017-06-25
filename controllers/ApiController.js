@@ -32,22 +32,23 @@ const validateUrl = url =>
   ) ? Right(url) : Left(`Invalid Url: ${url}`)
 
 // findUrlData :: Either(String) -> Task(Object)
-const findUrlData =	url =>
-	new Task((reject, result) =>
-		UrlData.findOne({ url })
-			.then(err => reject(err))
-			.then(data => result(data)) 
+const findUrlData = url =>
+  new Task((reject, result) =>
+    UrlData.findOne({ url })
+      .then(err => reject(err))
+      .then(data => result(data)))
 
 // shortenedUrl :: Object -> Either
 const shortenedUrl = _.compose(
   chain(findUrlData),
-	chain(validateUrl),
+  chain(validateUrl),
   chain(requestParamCheck),
   map(_.prop('0')),
   getPropValue('params')
 )
 
 export default (req, res) => {
-  const response = shortenedUrl(req)
-  return res.render('response', { title: 'Response Page', response })
+  shortenedUrl(req)
+    .fork(console.error, (data) =>
+      res.render('response', {title: 'Response', response: data}))
 }
