@@ -1,5 +1,7 @@
+import UrlData from '../models/UrlData'
 import _ from 'ramda'
 import Either from 'data.either'
+import Task from 'data.task'
 const { Left, Right } = Either
 
 // map :: (ObjectA -> ObjectB), M -> M[ObjectB]
@@ -29,15 +31,23 @@ const validateUrl = url =>
     url
   ) ? Right(url) : Left(`Invalid Url: ${url}`)
 
+// findUrlData :: Either(String) -> Task(Object)
+const findUrlData =	url =>
+	new Task((reject, result) =>
+		UrlData.findOne({ url })
+			.then(err => reject(err))
+			.then(data => result(data)) 
+
 // shortenedUrl :: Object -> Either
 const shortenedUrl = _.compose(
-  chain(validateUrl),
+  chain(findUrlData),
+	chain(validateUrl),
   chain(requestParamCheck),
   map(_.prop('0')),
   getPropValue('params')
 )
 
 export default (req, res) => {
-  const response = shortenedUrl(req).merge()
+  const response = shortenedUrl(req)
   return res.render('response', { title: 'Response Page', response })
 }
