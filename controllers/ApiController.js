@@ -4,9 +4,11 @@ import Either from 'data.either'
 import Task from 'data.task'
 const { Left, Right } = Either
 
-// map :: (ObjectA -> ObjectB), M -> M[ObjectB]
-const map = _.curry((fn, container) =>
-  container.map(fn))
+// _tap :: a -> a
+const _tap = f => {
+  console.log(f)
+  return f
+}
 
 // chain :: (ObjectA -> ObjectB), M -> ObjectB
 const chain = _.curry((fn, container) =>
@@ -15,10 +17,6 @@ const chain = _.curry((fn, container) =>
 // getPropValue :: (String -> Object) -> Either
 const getPropValue = _.curry((prop, obj) =>
   Either.fromNullable(_.prop(prop, obj)))
-
-// requestParamCheck :: Right -> Either
-const requestParamCheck = result =>
-  result ? Right(result) : Left('Param not found')
 
 // validate :: RegEx -> String -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
@@ -35,20 +33,28 @@ const validateUrl = url =>
 const findUrlData = url =>
   new Task((reject, result) =>
     UrlData.findOne({ url })
-      .then(err => reject(err))
-      .then(data => result(data)))
+      .then(data => result(data))
+      .catch(err => reject(err)))
 
-// shortenedUrl :: Object -> Either
-const shortenedUrl = _.compose(
+const eitherToTask = e => e.fold(Task.rejected, Task.of)
+
+// getShortenedUrl :: Object -> Task
+const getShortenedUrl = _.compose(
   chain(findUrlData),
+  eitherToTask,
   chain(validateUrl),
-  chain(requestParamCheck),
-  map(_.prop('0')),
+  chain(getPropValue('0')),
   getPropValue('params')
 )
 
 export default (req, res) => {
-  shortenedUrl(req)
-    .fork(console.error, (data) =>
-      res.render('response', {title: 'Response', response: data}))
+  getShortenedUrl(req)
+    .fork(
+      error => {
+        res.render('response', {title: 'Response', response: error})
+      },
+      response => {
+        res.render('response', {title: 'Response', response})
+      }
+    )
 }
