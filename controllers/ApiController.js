@@ -4,15 +4,16 @@ import Either from 'data.either'
 import Task from 'data.task'
 const { Left, Right } = Either
 
-// _tap :: a -> a
-const _tap = f => {
-  console.log(f)
-  return f
-}
+
+// alt :: (Function, Function, a) -> Function(a)
+const alt = _.curry((fn1, fn2, val) => fn1(val) || fn2(val))
 
 // chain :: (ObjectA -> ObjectB), M -> ObjectB
 const chain = _.curry((fn, container) =>
   container.chain(fn))
+
+// eitherToTask :: Either -> Task
+const eitherToTask = e => e.fold(Task.rejected, Task.of)
 
 // getPropValue :: (String -> Object) -> Either
 const getPropValue = _.curry((prop, obj) =>
@@ -36,11 +37,13 @@ const findUrlData = url =>
       .then(data => result(data))
       .catch(err => reject(err)))
 
-const eitherToTask = e => e.fold(Task.rejected, Task.of)
+const shortUrlGen = () =>
+  (Math.floor(100000 + Math.random() * 900000))
+    .toString()
+    .substring(0, 4)
 
 // getShortenedUrl :: Object -> Task
 const getShortenedUrl = _.compose(
-  _tap,
   chain(findUrlData),
   eitherToTask,
   chain(validateUrl),
