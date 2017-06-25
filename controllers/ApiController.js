@@ -18,10 +18,10 @@ const chain = _.curry((fn, container) =>
 const getPropValue = _.curry((prop, obj) =>
   Either.fromNullable(_.prop(prop, obj)))
 
-// validate :: RegEx -> String -> Boolean
+// validate :: (RegEx -> String) -> Boolean
 const validate = _.curry((pattern, str) => pattern.test(str))
 
-// validateUrl :: Either(String) -> Either
+// validateUrl :: Either(String) -> Either(String)
 const validateUrl = url =>
   validate(
     // eslint-disable-next-line
@@ -40,6 +40,7 @@ const eitherToTask = e => e.fold(Task.rejected, Task.of)
 
 // getShortenedUrl :: Object -> Task
 const getShortenedUrl = _.compose(
+  _tap,
   chain(findUrlData),
   eitherToTask,
   chain(validateUrl),
