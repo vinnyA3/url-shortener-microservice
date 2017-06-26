@@ -8,9 +8,15 @@ const { Left, Right } = Either
 // alt :: (Function, Function, a) -> Function(a)
 const alt = _.curry((fn1, fn2, val) => fn1(val) || fn2(val))
 
+// merge :: Either(a) -> a
+const merge = e => e.merge()
+
 // chain :: (ObjectA -> ObjectB), M -> ObjectB
 const chain = _.curry((fn, container) =>
   container.chain(fn))
+
+const map = _.curry((fn, container) =>
+  container.map(fn))
 
 // eitherToTask :: Either -> Task
 const eitherToTask = e => e.fold(Task.rejected, Task.of)
@@ -34,16 +40,22 @@ const validateUrl = url =>
 const findUrlData = url =>
   new Task((reject, result) =>
     UrlData.findOne({ url })
-      .then(data => result(data))
+      .then(data => result(Either.fromNullable(data)))
       .catch(err => reject(err)))
 
-const shortUrlGen = () =>
-  (Math.floor(100000 + Math.random() * 900000))
-    .toString()
-    .substring(0, 4)
+// Impure randomGen -> seemingly random
+// const randomGen = _ => Math.floor(100000 + Math.random() * 900000)
+
+// subStr :: (Integer, Integer, String) -> String
+// const subStr = _.curry((start, end, str) => str.substring(start, end))
+
+// createShortUrl :: Integer -> String
+// const createShortUrl = _.compose(subStr(0, 4), _.toString)
+
 
 // getShortenedUrl :: Object -> Task
 const getShortenedUrl = _.compose(
+  map(merge),
   chain(findUrlData),
   eitherToTask,
   chain(validateUrl),
