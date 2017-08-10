@@ -1,15 +1,11 @@
+'use strict'
+
 import UrlData from '../models/UrlData'
-import { compose, curry, prop, chain } from 'ramda'
+import { eitherToTask, getPropValue } from '../utils'
+import { compose, curry, chain } from 'ramda'
 import Either from 'data.either'
 import Task from 'data.task'
 const { Left, Right } = Either
-
-// eitherToTask :: Either -> Task
-const eitherToTask = e => e.fold(Task.rejected, Task.of)
-
-// getPropValue :: (String -> Object) -> Either
-const getPropValue = curry((p, obj) =>
-  Either.fromNullable(prop(p, obj)))
 
 // validate :: (RegEx -> String) -> Boolean
 const validate = curry((pattern, str) => pattern.test(str))
