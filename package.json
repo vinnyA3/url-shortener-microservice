@@ -19,9 +19,10 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.15.3",
-    "folktale": "1.0.0-SNAPSHOT",
     "mongoose": "^4.10.4",
-    "ramda": "^0.24.1"
+    "most": "^1.7.0",
+    "ramda": "^0.24.1",
+    "sanctuary": "^0.13.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

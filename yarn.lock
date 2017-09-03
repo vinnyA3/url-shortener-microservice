@@ -2,6 +2,16 @@
 # yarn lockfile v1
 
 
+"@most/multicast@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@most/multicast/-/multicast-1.2.5.tgz#ba5abc997f9a6511094bec117914f4959720a8fb"
+  dependencies:
+    "@most/prelude" "^1.4.0"
+
+"@most/prelude@^1.4.0":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@most/prelude/-/prelude-1.6.3.tgz#4eb453acb3251c47b92daa98d1652b704501c027"
+
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -1089,13 +1099,6 @@ content-type@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/content-type/-/content-type-1.0.2.tgz#b7d113aee7a8dd27bd21133c4dc2529df1721eed"
 
-control.monads@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/control.monads/-/control.monads-0.6.0.tgz#c50c158e1dd12ca7e05fcc3788f0e218d7c85388"
-  dependencies:
-    core.lambda "^1.0.0"
-    xtend "^2.2.0"
-
 convert-source-map@^1.1.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.5.0.tgz#9acd70851c6d5dfdd93d9282e5edf94a03ff46b5"
@@ -1115,24 +1118,6 @@ core-js@^2.4.0:
 core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
-
-core.arity@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/core.arity/-/core.arity-1.0.0.tgz#5d4c9dd2087bf9d9fc9b7fc2591ab5e02722d28f"
-
-core.inspect@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/core.inspect/-/core.inspect-1.0.3.tgz#21561c8f9aede6e60abe660ff98b8298b34fb09a"
-
-core.lambda@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/core.lambda/-/core.lambda-1.0.0.tgz#1260b257d48b6f830c060bf1fce567669f4d1d35"
-
-core.operators@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/core.operators/-/core.operators-1.0.0.tgz#f1eb7cc918c9334b3c9f891a464b899919a7b3a8"
-  dependencies:
-    core.lambda "^1.0.0"
 
 create-ecdh@^4.0.0:
   version "4.0.0"
@@ -1293,22 +1278,6 @@ dashdash@^1.12.0:
   resolved "https://registry.yarnpkg.com/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"
   dependencies:
     assert-plus "^1.0.0"
-
-data.either@^1.2.0:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/data.either/-/data.either-1.5.1.tgz#71f9dbfc8fe3ab0112e52e443470bcd526f50b47"
-
-data.maybe@^1.2.0:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/data.maybe/-/data.maybe-1.2.2.tgz#f955e4b5572b2eb5047eab93d8bb3a1cc76a2dc3"
-
-data.task@^3.0.0:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/data.task/-/data.task-3.1.1.tgz#e985f5bedadd926b2d63c1a5d2076cff917a52ad"
-
-data.validation@^1.3.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/data.validation/-/data.validation-1.3.1.tgz#0cc3185b61a1702ad71b840117b11717eec546fa"
 
 date-now@^0.1.4:
   version "0.1.4"
@@ -1907,20 +1876,6 @@ flat-cache@^1.2.1:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
-
-folktale@1.0.0-SNAPSHOT:
-  version "1.0.0-SNAPSHOT"
-  resolved "https://registry.yarnpkg.com/folktale/-/folktale-1.0.0-SNAPSHOT.tgz#e090e2096f4baf9788816b7e739b28cdd3384abc"
-  dependencies:
-    control.monads "^0.6.0"
-    core.arity "^1.0.0"
-    core.inspect "^1.0.3"
-    core.lambda "^1.0.0"
-    core.operators "^1.0.0"
-    data.either "^1.2.0"
-    data.maybe "^1.2.0"
-    data.task "^3.0.0"
-    data.validation "^1.3.0"
 
 for-in@^0.1.3:
   version "0.1.8"
@@ -3003,6 +2958,14 @@ morgan@^1.8.2:
     depd "~1.1.0"
     on-finished "~2.3.0"
     on-headers "~1.0.1"
+
+most@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/most/-/most-1.7.0.tgz#3f2478a5d6bf6bce687e6e4d8e973ca1a395cd1a"
+  dependencies:
+    "@most/multicast" "^1.2.5"
+    "@most/prelude" "^1.4.0"
+    symbol-observable "^1.0.2"
 
 mpath@0.2.1:
   version "0.2.1"
@@ -4202,6 +4165,35 @@ safe-buffer@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
+sanctuary-def@0.12.1:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/sanctuary-def/-/sanctuary-def-0.12.1.tgz#bb9b2ad9407b1519d1ee61fd293b24e86a2044b3"
+  dependencies:
+    sanctuary-type-classes "6.0.x"
+    sanctuary-type-identifiers "2.0.x"
+
+sanctuary-type-classes@6.0.0, sanctuary-type-classes@6.0.x:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-6.0.0.tgz#1db3f8c1247de018471e978fe4956a03eb62f464"
+  dependencies:
+    sanctuary-type-identifiers "1.0.x"
+
+sanctuary-type-identifiers@1.0.x:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-1.0.0.tgz#e8f359f006cb5e624cfb8464603fc114608bde9f"
+
+sanctuary-type-identifiers@2.0.1, sanctuary-type-identifiers@2.0.x:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-2.0.1.tgz#fc524cf6dd92cebfcbb0dd9509eff193159a20ed"
+
+sanctuary@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/sanctuary/-/sanctuary-0.13.2.tgz#ed1c9c2f2b1745d659ee3457954c8b1154f8d4a8"
+  dependencies:
+    sanctuary-def "0.12.1"
+    sanctuary-type-classes "6.0.0"
+    sanctuary-type-identifiers "2.0.1"
+
 sass-graph@^2.1.1:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/sass-graph/-/sass-graph-2.2.4.tgz#13fbd63cd1caf0908b9fd93476ad43a51d1e0b49"
@@ -4571,6 +4563,10 @@ svgo@^0.7.0:
     sax "~1.2.1"
     whet.extend "~0.9.9"
 
+symbol-observable@^1.0.2:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
+
 table@^3.7.8:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/table/-/table-3.8.3.tgz#2bbc542f0fda9861a755d3947fefd8b3f513855f"
@@ -4933,10 +4929,6 @@ xdg-basedir@^2.0.0:
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-2.0.0.tgz#edbc903cc385fc04523d966a335504b5504d1bd2"
   dependencies:
     os-homedir "^1.0.0"
-
-xtend@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/xtend/-/xtend-2.2.0.tgz#eef6b1f198c1c8deafad8b1765a04dad4a01c5a9"
 
 xtend@^4.0.0:
   version "4.0.1"
