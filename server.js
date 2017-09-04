@@ -7,9 +7,8 @@ import ApiRoutes from './routes/ApiRoutes'
 const port = 8080
 const app = express()
 // setup database connection
-const db = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1/url-shortener-service'
-mongoose.connect(db)
-mongoose.Promise = global.Promise
+const db = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/url-shortener-service'
+mongoose.connect(db, {promiseLibrary: global.Promise})
 // set up morgan logger
 app.use(morgan('dev'))
 // set view directory and default view engine
