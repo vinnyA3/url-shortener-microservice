@@ -10,7 +10,10 @@ const eitherToTask = e => e.fold(Task.rejected, Task.of)
 const getPropValue = curry((p, obj) =>
   Either.fromNullable(prop(p, obj)))
 
+const then = curry((fn, thenable) => thenable.then(fn))
+
 module.exports = {
   eitherToTask,
-  getPropValue
+  getPropValue,
+  then
 }
