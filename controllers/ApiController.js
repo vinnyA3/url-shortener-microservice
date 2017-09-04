@@ -1,47 +1,40 @@
 'use strict'
-
-import UrlData from '../models/UrlData'
-import { eitherToTask, getPropValue } from '../utils'
+// Import Url Data Model
+import Url from '../models/Url'
 import { compose, curry, chain } from 'ramda'
-import Either from 'data.either'
-import Task from 'data.task'
-const { Left, Right } = Either
+import { Right, Left, equals } from 'sanctuary'
+import { safeGetProp, then, catchP } from '../utils'
 
-// validate :: (RegEx -> String) -> Boolean
-const validate = curry((pattern, str) => pattern.test(str))
+// eslint-disable-next-line
+const pattern =
+  /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
 
-// validateUrl :: Either(String) -> Either(String)
-const validateUrl = url =>
-  validate(
-    // eslint-disable-next-line
-    /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/,
-    url
-  ) ? Right(url) : Left(`Invalid Url: ${url}`)
+// testPattern :: (RegEx -> String) -> Boolean
+const testPattern = curry((pattern, str) => pattern.test(str))
 
-// findUrlData :: Either(String) -> Task(Object)
-const findUrlData = url =>
-  new Task((reject, result) =>
-    UrlData.findOne({ url })
-      .then(data => result(Either.fromNullable(data)))
-      .catch(err => reject(err)))
+// validate :: String -> Either(String)
+const validate = url => equals(testPattern(pattern, url), true)
+  ? Right(url) : Left(`Error: ${url} is not a valid url`)
 
-// getShortenedUrl :: Object -> Task
-const getShortenedUrl = compose(
-  chain(findUrlData),
-  eitherToTask,
-  chain(validateUrl),
-  chain(getPropValue('0')),
-  getPropValue('params')
-)
+const validateUrl = compose(chain(validate), safeGetProp('0'))
+
+const getAndValidateUrl = compose(chain(validateUrl), safeGetProp('params'))
+
+// find :: DB, String -> Promise(Url)
+const find = (db, url) => db.findOne({ url })
+
+// fetchUrlDBAsync :: DB -> String -> Promise(Url)
+const fetchUrlDBAsync = curry((db, url) => find(db, url))
+
+const findUrlAsync = fetchUrlDBAsync(Url)
+
+const validateAndFindUrl = compose(chain(findUrlAsync), getAndValidateUrl)
 
 export default (req, res) => {
-  getShortenedUrl(req)
-    .fork(
-      error => {
-        res.render('response', {title: 'Response', response: error})
-      },
-      response => {
-        res.render('response', {title: 'Response', response})
-      }
-    )
+  const result = compose(
+    catchP(err => res.render('response', {title: 'Response', response: err})),
+    then(result => res.render('response', {title: 'Response', response: result})),
+    validateAndFindUrl
+  )
+  result(req)
 }
