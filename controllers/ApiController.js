@@ -1,9 +1,9 @@
 'use strict'
 // Import Url Data Model
 import Url from '../models/Url'
-import { compose, curry, chain } from 'ramda'
-import { Right, Left, equals } from 'sanctuary'
-import { safeGetProp, then, catchP, eitherToPromise, testPattern } from '../utils'
+import { compose, curry } from 'ramda'
+import { equals, maybeToEither, gets } from 'sanctuary'
+import { then, catchP, eitherToPromise, testPattern } from '../utils'
 
 // eslint-disable-next-line
 const pattern =
@@ -11,15 +11,12 @@ const pattern =
 
 // validateUrl :: String -> Either(String)
 const validateUrl = url => equals(testPattern(pattern, url), true)
-  ? Right(url) : Left(`${url} is not a valid url`)
 
-const safeGetQueryParams = compose(chain(safeGetProp('0')), safeGetProp('params'))
+const safeGetAndValidate = req => gets(validateUrl, ['params', '0'], req)
 
-const promiseGetAndValidate = compose(
-  eitherToPromise,
-  chain(validateUrl),
-  safeGetQueryParams
-)
+const validateToEither = compose(maybeToEither(`Invalid Url!`), safeGetAndValidate)
+
+const validateToPromise = compose(eitherToPromise, validateToEither)
 
 // find :: DB, String -> Promise(Url)
 const find = (db, url) => db.findOne({ url })
@@ -30,7 +27,7 @@ const fetchUrlDBAsync = curry((db, url) => find(db, url))
 // findUrlAsync :: String -> Promise
 const findUrlAsync = fetchUrlDBAsync(Url)
 
-const validateAndFindUrl = compose(then(findUrlAsync), promiseGetAndValidate)
+const validateAndFindUrl = compose(then(findUrlAsync), validateToPromise)
 
 export default (req, res) => compose(
   catchP(err => res.render('response', {title: 'Response', response: err})),
