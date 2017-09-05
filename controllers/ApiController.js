@@ -3,22 +3,23 @@
 import Url from '../models/Url'
 import { compose, curry, chain } from 'ramda'
 import { Right, Left, equals } from 'sanctuary'
-import { safeGetProp, then, catchP } from '../utils'
+import { safeGetProp, then, catchP, eitherToPromise, testPattern } from '../utils'
 
 // eslint-disable-next-line
 const pattern =
   /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
 
-// testPattern :: (RegEx -> String) -> Boolean
-const testPattern = curry((pattern, str) => pattern.test(str))
+// validateUrl :: String -> Either(String)
+const validateUrl = url => equals(testPattern(pattern, url), true)
+  ? Right(url) : Left(`${url} is not a valid url`)
 
-// validate :: String -> Either(String)
-const validate = url => equals(testPattern(pattern, url), true)
-  ? Right(url) : Left(`Error: ${url} is not a valid url`)
+const safeGetQueryParams = compose(chain(safeGetProp('0')), safeGetProp('params'))
 
-const validateUrl = compose(chain(validate), safeGetProp('0'))
-
-const getAndValidateUrl = compose(chain(validateUrl), safeGetProp('params'))
+const promiseGetAndValidate = compose(
+  eitherToPromise,
+  chain(validateUrl),
+  safeGetQueryParams
+)
 
 // find :: DB, String -> Promise(Url)
 const find = (db, url) => db.findOne({ url })
@@ -26,15 +27,13 @@ const find = (db, url) => db.findOne({ url })
 // fetchUrlDBAsync :: DB -> String -> Promise(Url)
 const fetchUrlDBAsync = curry((db, url) => find(db, url))
 
+// findUrlAsync :: String -> Promise
 const findUrlAsync = fetchUrlDBAsync(Url)
 
-const validateAndFindUrl = compose(chain(findUrlAsync), getAndValidateUrl)
+const validateAndFindUrl = compose(then(findUrlAsync), promiseGetAndValidate)
 
-export default (req, res) => {
-  const result = compose(
-    catchP(err => res.render('response', {title: 'Response', response: err})),
-    then(result => res.render('response', {title: 'Response', response: result})),
-    validateAndFindUrl
-  )
-  result(req)
-}
+export default (req, res) => compose(
+  catchP(err => res.render('response', {title: 'Response', response: err})),
+  then(result => res.render('response', {title: 'Response', response: result})),
+  validateAndFindUrl
+)(req)
