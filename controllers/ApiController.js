@@ -3,7 +3,8 @@
 import Url from '../models/Url'
 import { compose, curry } from 'ramda'
 import { equals, maybeToEither, gets } from 'sanctuary'
-import { then, catchP, eitherToPromise, testPattern } from '../utils'
+import { then, catchP, eitherToPromise, testPattern,
+  alt } from '../utils'
 
 // eslint-disable-next-line
 const pattern =
@@ -27,10 +28,18 @@ const fetchUrlDBAsync = curry((db, url) => find(db, url))
 // findUrlAsync :: String -> Promise
 const findUrlAsync = fetchUrlDBAsync(Url)
 
-const validateAndFindUrl = compose(then(findUrlAsync), validateToPromise)
+const create = (db, url) => db.create({ url })
+
+const createUrlDBAsync = curry((db, url) => create(db, url))
+
+const createUrlAsync = createUrlDBAsync(Url)
+
+const findOrCreate = alt(findUrlAsync, createUrlAsync)
+
+const validateAndPerform = compose(then(findOrCreate), validateToPromise)
 
 export default (req, res) => compose(
   catchP(err => res.render('response', {title: 'Response', response: err})),
   then(result => res.render('response', {title: 'Response', response: result})),
-  validateAndFindUrl
+  validateAndPerform
 )(req)
