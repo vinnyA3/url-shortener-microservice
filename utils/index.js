@@ -17,3 +17,9 @@ export const eitherToPromise = e => new Promise((resolve, reject) =>
 
 // testPattern :: (RegEx -> String) -> Boolean
 export const testPattern = curry((pattern, str) => pattern.test(str))
+
+export const alt = curry((fn1, fn2, val) => fn1(val) || fn2(val))
+
+// genRandom :: Integer, Integer -> Integer
+export const genRandom = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min
