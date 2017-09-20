@@ -1,7 +1,6 @@
 'use strict'
-// Import Url Data Model
-import Url from '../models/Url'
-import { compose, curry } from 'ramda'
+
+import { compose, curry, isNil, tap } from 'ramda'
 import { equals, maybeToEither, gets } from 'sanctuary'
 import { then, catchP, eitherToPromise, testPattern,
   alt } from '../utils'
@@ -20,7 +19,11 @@ const validateToEither = compose(maybeToEither(`Invalid Url!`), safeGetAndValida
 const validateToPromise = compose(eitherToPromise, validateToEither)
 
 // find :: DB, String -> Promise(Url)
-const find = (db, url) => db.findOne({ url })
+const find = async (db, url) => {
+	const result = await db.findOne({ url })
+	return isNil(result) ? false : new Promise((resolve, reject) =>
+		resolve(result))
+} 
 
 // fetchUrlDBAsync :: DB -> String -> Promise(Url)
 const fetchUrlDBAsync = curry((db, url) => find(db, url))
@@ -34,7 +37,7 @@ const createUrlDBAsync = curry((db, url) => create(db, url))
 
 const createUrlAsync = createUrlDBAsync(Url)
 
-const findOrCreate = alt(findUrlAsync, createUrlAsync)
+const findOrCreate = alt(compose(tap(console.log), findUrlAsync), createUrlAsync)
 
 const validateAndPerform = compose(then(findOrCreate), validateToPromise)
 
