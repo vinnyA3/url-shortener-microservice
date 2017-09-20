@@ -2,15 +2,14 @@
 
 import { compose, curry, isNil, tap } from 'ramda'
 import { equals, maybeToEither, gets } from 'sanctuary'
-import { then, catchP, eitherToPromise, testPattern,
-	findUrlAsync, createUrlAsync } from '../utils'
+import utils from '../utils'
 
-console.log(then)
+const { testPattern, eitherToPromise, alt,
+	findUrlAsync, createUrlAsync, then, catchP } = utils
 
 // eslint-disable-next-line
 const pattern =
   /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
-const alt = curry((fn1, fn2, val) => fn1(val) || fn2(val))
 
 // validateUrl :: String -> Either(String)
 const validateUrl = url => equals(testPattern(pattern, url), true)
