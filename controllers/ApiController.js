@@ -3,11 +3,14 @@
 import { compose, curry, isNil, tap } from 'ramda'
 import { equals, maybeToEither, gets } from 'sanctuary'
 import { then, catchP, eitherToPromise, testPattern,
-  alt, findUrlAsync, createUrlAsync } from '../utils'
+	findUrlAsync, createUrlAsync } from '../utils'
+
+console.log(then)
 
 // eslint-disable-next-line
 const pattern =
   /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
+const alt = curry((fn1, fn2, val) => fn1(val) || fn2(val))
 
 // validateUrl :: String -> Either(String)
 const validateUrl = url => equals(testPattern(pattern, url), true)
@@ -20,7 +23,7 @@ const validateToPromise = compose(eitherToPromise, validateToEither)
 
 const findOrCreate = alt(findUrlAsync, createUrlAsync)
 
-const validateAndPerform = compose(then(findOrCreate), validateToPromise)
+const validateAndPerform = compose(then(findOrCreate), tap(console.log), validateToPromise)
 
 export default (req, res) => compose(
   catchP(err => res.render('response', {title: 'Response', response: err})),
