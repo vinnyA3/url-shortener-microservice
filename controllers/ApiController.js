@@ -11,17 +11,22 @@ const { testPattern, eitherToPromise, alt,
 const pattern =
   /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
 
-// validateUrl :: String -> Either(String)
+// validateUrl :: String -> Boolean
 const validateUrl = url => equals(testPattern(pattern, url), true)
 
+// safeGetAndValidate :: Object -> Maybe
 const safeGetAndValidate = req => gets(validateUrl, ['params', '0'], req)
 
+// validateToEither :: Object -> Either
 const validateToEither = compose(maybeToEither(`Invalid Url!`), safeGetAndValidate)
 
+// validateToPromise :: Object -> Promise
 const validateToPromise = compose(eitherToPromise, validateToEither)
 
+// findOrCreate :: String -> Promise
 const findOrCreate = alt(findUrlAsync, createUrlAsync)
 
+// validateAndPerform :: Object(Request) -> Promise
 const validateAndPerform = compose(then(findOrCreate), tap(console.log), validateToPromise)
 
 export default (req, res) => compose(
