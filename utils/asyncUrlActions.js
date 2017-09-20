@@ -18,8 +18,6 @@ const createUrlAsync = createUrlDBAsync(Url)
 
 
 export default {
-	fetchUrlDBAsync,
 	findUrlAsync,
-	createUrlDBAsync,
 	createUrlAsync
 }
