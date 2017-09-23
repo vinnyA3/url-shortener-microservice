@@ -29,6 +29,7 @@ const findOrCreate = alt(findUrlAsync, createUrlAsync)
 // validateAndPerform :: Object(Request) -> Promise
 const validateAndPerform = compose(then(findOrCreate), tap(console.log), validateToPromise)
 
+// export functionality and push side effects down pipe
 export default (req, res) => compose(
   catchP(err => res.render('response', {title: 'Response', response: err})),
   then(result => res.render('response', {title: 'Response', response: result})),
