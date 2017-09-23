@@ -27,7 +27,13 @@ const validateToPromise = compose(eitherToPromise, validateToEither)
 const findOrCreate = alt(findUrlAsync, createUrlAsync)
 
 // validateAndPerform :: Object(Request) -> Promise
-const validateAndPerform = compose(then(findOrCreate), validateToPromise)
+const validateAndPerform = compose(
+  then(url => compose(
+    then(tap(console.log)),
+    then(res => res || createUrlAsync(url)), findUrlAsync
+  )(url)),
+  validateToPromise
+)
 
 // export functionality and push side effects down pipe
 export default (req, res) => compose(

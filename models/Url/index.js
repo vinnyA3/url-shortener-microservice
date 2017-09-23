@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
-import { genRandom } from '../../utils'
-const {Schema} = mongoose
+import utils from '../../utils'
+
+const { Schema } = mongoose
 
 const UrlSchema = new Schema({
   url: { type: String, required: true },
@@ -8,7 +9,7 @@ const UrlSchema = new Schema({
 })
 
 UrlSchema.pre('save', function (next) {
-  const random = genRandom(1000, 9999)
+  const random = utils.genRandom(1000, 9999)
   this.shortenedUrl = `${random}`
   next()
 })
