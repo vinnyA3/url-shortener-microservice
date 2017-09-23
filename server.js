@@ -3,11 +3,11 @@ import mongoose from 'mongoose'
 import morgan from 'morgan'
 // api routes import
 import ApiRoutes from './routes/ApiRoutes'
-// define port and app
-const port = 8080
+// export port & db uri
+import { port, db } from './config'
+// define app
 const app = express()
-// setup database connection
-const db = process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/url-shortener-service'
+// connect to mongoose db and set promise lib
 mongoose.connect(db, {promiseLibrary: global.Promise})
 // set up morgan logger
 app.use(morgan('dev'))
