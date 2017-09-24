@@ -24,7 +24,7 @@ const validateToEither = compose(maybeToEither(`Invalid Url!`), safeGetAndValida
 const validateToPromise = compose(eitherToPromise, validateToEither)
 
 // findOrCreate :: String -> Promise
-const findOrCreate = alt(findUrlAsync, createUrlAsync)
+// const findOrCreate = alt(findUrlAsync, createUrlAsync)
 
 // validateAndPerform :: Object(Request) -> Promise
 const validateAndPerform = compose(
