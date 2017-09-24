@@ -8,9 +8,9 @@ const UrlSchema = new Schema({
   shortenedUrl: { type: String }
 })
 
-UrlSchema.pre('save', function (next) {
+UrlSchema.pre('save', async function (next) {
   const random = utils.genRandom(1000, 9999)
-  this.shortenedUrl = `${random}`
+  this.shortenedUrl = `localhost:8080/api/${random}`
   next()
 })
 
