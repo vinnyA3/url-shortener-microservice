@@ -4,8 +4,8 @@ import { compose, curry, isNil, tap } from 'ramda'
 import { equals, maybeToEither, gets } from 'sanctuary'
 import utils from '../utils'
 
-const { testPattern, eitherToPromise, alt,
-	findUrlAsync, createUrlAsync, then, catchP } = utils
+const { testPattern, eitherToPromise, findUrlAsync,
+  createUrlAsync, then, catchP } = utils
 
 // eslint-disable-next-line
 const pattern =
@@ -24,19 +24,15 @@ const validateToEither = compose(maybeToEither(`Invalid Url!`), safeGetAndValida
 const validateToPromise = compose(eitherToPromise, validateToEither)
 
 // findOrCreate :: String -> Promise
-// const findOrCreate = alt(findUrlAsync, createUrlAsync)
+const findOrCreate = url =>
+  compose(then(res => res || createUrlAsync(url)), findUrlAsync)(url)
 
-// validateAndPerform :: Object(Request) -> Promise
-const validateAndPerform = compose(
-  then(url => compose(
-    then(res => res || createUrlAsync(url)), findUrlAsync(url)
-  )(url)),
-  validateToPromise
-)
+// validateThenFindOrCreate :: Object(Request) -> Promise
+const validateThenFindOrCreate = compose(then(findOrCreate), validateToPromise)
 
 // export functionality and push side effects down pipe
 export default (req, res) => compose(
   catchP(err => res.render('response', {title: 'Response', response: err})),
   then(result => res.render('response', {title: 'Response', response: result})),
-  validateAndPerform
+  validateThenFindOrCreate
 )(req)
