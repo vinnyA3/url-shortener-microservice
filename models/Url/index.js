@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import utils from '../../utils'
 
-const { Schema } = mongoose
+const {Schema} = mongoose
 
 const UrlSchema = new Schema({
   url: { type: String, required: true },
