@@ -6,6 +6,8 @@ The cool thing here is that the main applicatoin logic is written in a pure,
 functional-style. Utilizing functional composition, currying, and monadic interfaces,
 I aimed to create a service that is fault-tolerant, pure, and easy to reason about.
 
+![recording of minimal app functionality](https://raw.githubusercontent.com/vinnya3/url-shortener-microservice/master/screenshots/app-fn.gif)
+
 **Requirements**:
 -----------------
 
