@@ -18,6 +18,7 @@
   "author": "vinnyA3",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "express": "^4.15.5",
     "mongoose": "^4.10.4",
     "most": "^1.7.0",
