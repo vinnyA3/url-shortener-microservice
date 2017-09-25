@@ -7,9 +7,9 @@ export default (app, express) => {
   router.route(/^(?:\/)([\D]+)$/)
     .get(getShortenedUrl)
 
-  //router.route(/^(?:\/)(\d+)$/)
-  router.route('/:num')
+  router.route(/^(?:\/)(\d+)$/)
     .get(retrieveUrl)
+
   // return router obj
   return router
 }
