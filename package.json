@@ -18,7 +18,7 @@
   "author": "vinnyA3",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.3",
+    "express": "^4.15.5",
     "mongoose": "^4.10.4",
     "most": "^1.7.0",
     "ramda": "^0.24.1",
