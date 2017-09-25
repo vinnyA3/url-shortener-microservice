@@ -15,9 +15,11 @@ I aimed to create a service that is fault-tolerant, pure, and easy to reason abo
 -----------------
 
 **Todo**(in no particular order):
-1. Refactor composed findOrCreate function in ApiController
+1. ~~Refactor composed findOrCreate function in ApiController~~
 2. In UrlData pre-save hook, assure that generated shortenedUrl is unique
-3. Add route to receive shortened url
+3. ~~Add route to receive shortened url~~
 4. If needed, add some more helpful comments/refacor function names
 5. Jest Test is the Best
+6. Add pretty client
+7. refactor dir structures
 
