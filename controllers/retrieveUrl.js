@@ -1,4 +1,5 @@
-// TODO -> add helpful comments && see below ...
+// TODO -> add helpful comments
+// + add some graceful err handling + fn renames + partial binding
 import { spawnSync } from 'child_process'
 import UrlData from '../models/Url'
 import utils from '../utils'
