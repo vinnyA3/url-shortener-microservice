@@ -1,6 +1,6 @@
 'use strict'
 
-import { compose, curry, isNil, tap, map } from 'ramda'
+import { compose, curry, isNil } from 'ramda'
 import { equals, maybeToEither, gets } from 'sanctuary'
 import utils from '../utils'
 
@@ -25,7 +25,7 @@ const validateToPromise = compose(eitherToPromise, validateToEither)
 
 // findOrCreate :: String -> Promise
 const findOrCreate = url =>
-  compose(then(res => res || createUrlAsync(url)), tap(console.log), findUrlAsync)(url)
+  compose(then(res => res || createUrlAsync(url)), findUrlAsync)(url)
 
 // validateThenFindOrCreate :: Object(Request) -> Promise
 const validateThenFindOrCreate = compose(then(findOrCreate), validateToPromise)
