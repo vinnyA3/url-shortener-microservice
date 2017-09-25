@@ -12,8 +12,8 @@ const safeGetAndIsString = req => gets(is(String), ['params', '0'], req)
 
 const toEither = compose(maybeToEither('Not a valid short url!'), safeGetAndIsString)
 
-const find = curry((db, shortUrl) =>
-  db.findOne({ shortenedUrl: shortUrl }))
+const find = curry((db, shortenedUrl) =>
+  db.findOne({ shortenedUrl: shortenedUrl }))
 
 const findUrlAsync = shortUrl => find(UrlData, shortUrl)
 
