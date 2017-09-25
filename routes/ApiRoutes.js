@@ -1,4 +1,4 @@
-import getShortenedUrl from '../controllers/ApiController'
+import getShortenedUrl from '../controllers/getShortenedUrl'
 import retrieveUrl from '../controllers/retrieveUrl'
 
 export default (app, express) => {
