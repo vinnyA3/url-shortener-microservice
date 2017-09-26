@@ -1,5 +1,4 @@
 // TODO -> add helpful comments
-// + add some graceful err handling + fn renames + partial binding
 import { spawnSync } from 'child_process'
 import UrlData from '../models/Url'
 import utils from '../utils'
@@ -19,15 +18,13 @@ const findUrlAsync = shortUrl => find(UrlData, shortUrl)
 
 const fetchUrl = compose(chain(findUrlAsync), toEither)
 
-const openUrl = url => {
-  const subprocess = spawnSync('xdg-open', [url], { timeout: 5000 })
-  return url
+const open = urlData => {
+  const subprocess = spawnSync(
+    'xdg-open', [prop('url', urlData)], { timeout: 5000 }
+  )
+  return urlData
 }
 
-export default (req, res) => compose(
-  catchP(err => res.render('response', {title: 'Response', response: err})),
-  then(url => res.render('response', {title: 'Response', response: url})),
-  then(openUrl),
-  then(prop('url')),
-  fetchUrl
-)(req)
+const fetchAndOpenUrl = compose(then(open), fetchUrl)
+
+export default fetchAndOpenUrl
