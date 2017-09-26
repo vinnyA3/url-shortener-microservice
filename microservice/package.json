@@ -33,7 +33,6 @@
     "babel-core": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
-    "css-loader": "^0.28.4",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.3.0",
@@ -42,18 +41,13 @@
     "eslint-plugin-standard": "^3.0.1",
     "eslint-watch": "^3.1.0",
     "morgan": "^1.8.2",
-    "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
-    "npm-run-all": "^4.0.2",
-    "pug": "^2.0.0-rc.1",
-    "sass-loader": "^6.0.5",
-    "style-loader": "^0.18.1",
-    "webpack": "^2.6.1"
+    "npm-run-all": "^4.0.2"
   },
   "jest": {
     "browser": false,
     "collectCoverageFrom": [
-      "controllers/*.js",
+      "handlers/*.js",
       "!**/node_modules/**",
       "!**/utils/**",
       "!**/models/**",
