@@ -11,14 +11,11 @@ const app = express()
 mongoose.connect(db, {promiseLibrary: global.Promise})
 // set up morgan logger
 app.use(morgan('dev'))
-// set view directory and default view engine
-app.set('views', './views')
-app.set('view engine', 'pug')
 // include api routes
 app.use('/api', ApiRoutes(app, express))
 // main route
 app.get('*', (req, res) => {
-  res.render('index', { title: 'Welcome', message: 'Hello there' })
+  res.status(200).send({ message: 'Hello There!' })
 })
 // start server
 app.listen(port, (err) => {
