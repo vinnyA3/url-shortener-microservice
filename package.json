@@ -49,5 +49,16 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.1"
+  },
+  "jest": {
+    "browser": false,
+    "coverageThreshold": {
+      "./controllers/**/*.js": {
+        "branches": 50,
+        "functions": 50,
+        "lines": 50,
+        "statements": 50
+      }
+    }
   }
 }
