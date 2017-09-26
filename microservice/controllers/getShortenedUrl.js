@@ -31,8 +31,4 @@ const findOrCreate = url =>
 const validateThenFindOrCreate = compose(then(findOrCreate), validateToPromise)
 
 // export functionality and push side effects down pipe
-export default (req, res) => compose(
-  catchP(err => res.render('response', {title: 'Response', response: err})),
-  then(result => res.render('response', {title: 'Response', response: result})),
-  validateThenFindOrCreate
-)(req)
+export default validateThenFindOrCreate
