@@ -1,6 +1,8 @@
 import handlers from '../handlers'
-import { then, catchP } from '../utils'
+import utils from '../utils'
 import { compose } from 'ramda'
+
+const { then, catchP } = utils
 
 export default (app, express) => {
   // create router instance
@@ -8,14 +10,16 @@ export default (app, express) => {
 
   router.route(/^(?:\/)([\D]+)$/)
     .get((req, res) => compose(
-      catchP(err => res.send(err))
-      then(data => res.status(200).send(data))
+      catchP(err => res.send(err)),
+      then(data => res.status(200).send(data)),
+      handlers.getShortenedUrl
     )(req))
 
   router.route(/^(?:\/)(\d+)$/)
     .get((req, res) => compose(
-      catchP(err => res.send(err))
-      then(date => res.status(200).send(data))
+      catchP(err => res.send(err)),
+      then(data => res.status(200).send(data)),
+      handlers.retrieveUrl
     )(req))
 
   // return router obj
