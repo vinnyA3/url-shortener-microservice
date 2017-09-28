@@ -1,4 +1,4 @@
-URL-Shortener-Microservice * [![Build
+URL-Shortener-Microservice &middot; [![Build
 Status](https://travis-ci.org/vinnyA3/url-shortener-microservice.svg?branch=master)](https://travis-ci.org/vinnyA3/url-shortener-microservice)
 ==========================
 
