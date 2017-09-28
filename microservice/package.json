@@ -8,7 +8,7 @@
     "open:src": "nodemon ./server.js --exec babel-node",
     "lint": "esw ./**/*.js",
     "lint:watch": "npm run lint -- --watch",
-    "test": "jest --coverage",
+    "test": "jest --no-cache --coverage",
     "test:watch": "npm run test -- --watch"
   },
   "keywords": [
