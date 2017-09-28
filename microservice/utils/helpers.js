@@ -1,7 +1,7 @@
 'use strict'
 
-import { curry } from 'ramda'
-import { toEither, prop, either } from 'sanctuary'
+import { curry, prop } from 'ramda'
+import { toEither, either } from 'sanctuary'
 
 // getPropValue :: (String -> Object) -> Either
 export const safeGetProp = curry((p, obj) =>
