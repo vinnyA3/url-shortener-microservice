@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { prop } from 'ramda'
 import { db } from '../../config'
 import getShortenedUrl from '../getShortenedUrl'
 mongoose.Promise = global.Promise
