@@ -1,4 +1,5 @@
-URL-Shortener-Microservice
+URL-Shortener-Microservice * [![Build
+Status](https://travis-ci.org/vinnyA3/url-shortener-microservice.svg?branch=master)](https://travis-ci.org/vinnyA3/url-shortener-microservice)
 ==========================
 
 **Description**: A url shortening microservice written in Node/Express/Mongo.
