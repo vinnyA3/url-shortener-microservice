@@ -1,15 +1,16 @@
 'use strict'
 
-import { compose, curry, isNil } from 'ramda'
+import { compose } from 'ramda'
 import { equals, maybeToEither, gets } from 'sanctuary'
 import utils from '../utils'
 
 const { testPattern, eitherToPromise, findUrlAsync,
-  createUrlAsync, then, catchP } = utils
+  createUrlAsync, then } = utils
 
-// eslint-disable-next-line
+/* eslint-disable */
 const pattern =
   /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
+/* eslint-enable */
 
 // validateUrl :: String -> Boolean
 const validateUrl = url => equals(testPattern(pattern, url), true)
