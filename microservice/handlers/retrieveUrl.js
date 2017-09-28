@@ -7,7 +7,7 @@ import { gets, is, maybeToEither } from 'sanctuary'
 
 const { then, catchP } = utils
 
-const safeGetAndIsString = req => gets(is(String), ['params', '0'], req) 
+const safeGetAndIsString = req => gets(is(String), ['params', '0'], req)
 
 const toEither = compose(maybeToEither('Not a valid short url!'), safeGetAndIsString)
 
