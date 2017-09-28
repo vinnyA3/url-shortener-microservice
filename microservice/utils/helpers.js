@@ -24,12 +24,12 @@ const alt = curry((fn1, fn2, val) => fn1(val) || fn2(val))
 const genRandom = (min, max) =>
 Math.floor(Math.random() * (max - min + 1)) + min
 
- export default {
-	safeGetProp,
-	then,
-	catchP,
-	eitherToPromise,
-	testPattern,
-	alt,
-	genRandom
+export default {
+  safeGetProp,
+  then,
+  catchP,
+  eitherToPromise,
+  testPattern,
+  alt,
+  genRandom
 }
