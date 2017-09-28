@@ -5,7 +5,7 @@ import utils from '../utils'
 import { compose, prop, curry, chain } from 'ramda'
 import { gets, is, maybeToEither } from 'sanctuary'
 
-const { then, catchP } = utils
+const { then } = utils
 
 const safeGetAndIsString = req => gets(is(String), ['params', '0'], req)
 
@@ -19,7 +19,7 @@ const findUrlAsync = shortUrl => find(UrlData, shortUrl)
 const fetchUrl = compose(chain(findUrlAsync), toEither)
 
 const open = urlData => {
-  const subprocess = spawnSync(
+  spawnSync(
     'xdg-open', [prop('url', urlData)], { timeout: 5000 }
   )
   return urlData
