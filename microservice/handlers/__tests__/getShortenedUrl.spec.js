@@ -19,7 +19,7 @@ it('should return a promise', () => {
 
 it('should resolve to a valid urlData object', () => {
   const doc = docFactory({
-    url: 'http://www.google.com', shortenedUrl: '5972'
+    url: 'http://www.google.com', shortenedUrl: expect.any(String)
   })
   const req = requestFactory()
   const result = getShortenedUrl(req).then(d => d.toJSON())
