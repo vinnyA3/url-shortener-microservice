@@ -8,7 +8,8 @@ import { port, db } from './config'
 // define app
 const app = express()
 // connect to mongoose db and set promise lib
-mongoose.connect(db, {promiseLibrary: global.Promise})
+mongoose.connect(db)
+mongoose.Promise = global.Promise
 // set up morgan logger
 app.use(morgan('dev'))
 // include api routes
