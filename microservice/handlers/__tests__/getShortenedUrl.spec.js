@@ -18,7 +18,7 @@ it('should return a promise', () => {
   return expect(result).toBeInstanceOf(Promise)
 })
 
-it('should resolved to an object', () => {
+it('should resolve to a valid urlData object', () => {
   const doc = docFactory({
     url: 'http://www.google.com', shortenedUrl: '5972'
   })
