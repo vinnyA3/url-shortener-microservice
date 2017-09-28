@@ -13,23 +13,23 @@ const pattern =
 /* eslint-enable */
 
 // validateUrl :: String -> Boolean
-const validateUrl = url => equals(testPattern(pattern, url), true)
+export const validateUrl = url => equals(testPattern(pattern, url), true)
 
 // safeGetAndValidate :: Object -> Maybe
-const safeGetAndValidate = req => gets(validateUrl, ['params', '0'], req)
+export const safeGetAndValidate = req => gets(validateUrl, ['params', '0'], req)
 
 // validateToEither :: Object -> Either
-const validateToEither = compose(maybeToEither(`Invalid Url!`), safeGetAndValidate)
+export const validateToEither = compose(maybeToEither(`Invalid Url!`), safeGetAndValidate)
 
 // validateToPromise :: Object -> Promise
-const validateToPromise = compose(eitherToPromise, validateToEither)
+export const validateToPromise = compose(eitherToPromise, validateToEither)
 
 // findOrCreate :: String -> Promise
-const findOrCreate = url =>
+export const findOrCreate = url =>
   compose(then(res => res || createUrlAsync(url)), findUrlAsync)(url)
 
 // validateThenFindOrCreate :: Object(Request) -> Promise
-const validateThenFindOrCreate = compose(then(findOrCreate), validateToPromise)
+export const validateThenFindOrCreate = compose(then(findOrCreate), validateToPromise)
 
 // export functionality and push side effects down pipe
 export default validateThenFindOrCreate
