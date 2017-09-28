@@ -19,9 +19,7 @@ const findUrlAsync = shortUrl => find(UrlData, shortUrl)
 const fetchUrl = compose(chain(findUrlAsync), toEither)
 
 const open = urlData => {
-  spawnSync(
-    'xdg-open', [prop('url', urlData)], { timeout: 5000 }
-  )
+  spawnSync('xdg-open', [prop('url', urlData)], { timeout: 5000 })
   return urlData
 }
 
