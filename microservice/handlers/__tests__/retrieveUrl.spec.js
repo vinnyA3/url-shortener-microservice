@@ -13,12 +13,7 @@ beforeAll(async () => {
     url: testUrl,
     shortenedUrl: testShortenedUrl
   })
-  await newData.save(err => {
-    if (err) console.log(err)
-    else {
-      console.log('SAved!')
-    }
-  })
+  await newData.save()
 })
 
 afterAll((done) => {
