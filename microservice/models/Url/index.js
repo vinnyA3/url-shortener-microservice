@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import utils from '../../utils'
-import { not } from 'ramda'
+import { not, compose, isNil, ifElse, prop } from 'ramda'
 
 const {Schema} = mongoose
 
@@ -9,13 +9,25 @@ const UrlSchema = new Schema({
   shortenedUrl: { type: String }
 })
 
+const Url = mongoose.model('Url', UrlSchema)
+
 UrlSchema.pre('save', function (next) {
-  console.log(this)
-  if (not(this.shortenedUrl)) {
-    const random = utils.genRandom(1000, 9999)
-    this.shortenedUrl = `${random}`
+  const self = this
+
+  const genUniqueShortUrl = async (rand = utils.getRandom(1000, 9999)) => {
+    const searchShortUrl = await Url.findOne({ shortenedUrl: rand })
+    if (compose(not, isNil)(searchShortUrl)) {
+      await genUniqueShortUrl()
+    } else {
+      self.shortenedUrl = `${rand}`
+      next()
+    }
   }
-  next()
+  ifElse(
+    compose(not, isNil, prop('shortenedUrl')),
+    next(),
+    genUniqueShortUrl()
+  )
 })
 
-module.exports = mongoose.model('Url', UrlSchema)
+module.exports = Url
