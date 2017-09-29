@@ -10,6 +10,7 @@ const UrlSchema = new Schema({
 })
 
 UrlSchema.pre('save', function (next) {
+  console.log(this)
   if (not(this.shortenedUrl)) {
     const random = utils.genRandom(1000, 9999)
     this.shortenedUrl = `${random}`
