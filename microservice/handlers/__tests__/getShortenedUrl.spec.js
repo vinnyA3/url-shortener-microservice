@@ -3,8 +3,8 @@ import { db } from '../../config'
 import getShortenedUrl from '../getShortenedUrl'
 mongoose.Promise = global.Promise
 
-beforeAll(() => {
-  mongoose.connect(db)
+beforeAll(async () => {
+  await mongoose.connect(db)
 })
 
 afterAll((done) => {
