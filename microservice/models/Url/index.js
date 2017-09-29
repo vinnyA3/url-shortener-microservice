@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import utils from '../../utils'
+import { not } from 'ramda'
 
 const {Schema} = mongoose
 
@@ -8,9 +9,11 @@ const UrlSchema = new Schema({
   shortenedUrl: { type: String }
 })
 
-UrlSchema.pre('save', async function (next) {
-  const random = utils.genRandom(1000, 9999)
-  this.shortenedUrl = `${random}`
+UrlSchema.pre('save', function (next) {
+  if (not(this.shortenedUrl)) {
+    const random = utils.genRandom(1000, 9999)
+    this.shortenedUrl = `${random}`
+  }
   next()
 })
 
