@@ -19,7 +19,7 @@ export const validateUrl = url => equals(testPattern(pattern, url), true)
 export const safeGetAndValidate = req => gets(validateUrl, ['params', '0'], req)
 
 // validateToEither :: Object -> Either
-export const validateToEither = compose(maybeToEither(`Invalid Url!`), safeGetAndValidate)
+export const validateToEither = compose(maybeToEither('Invalid Url!'), safeGetAndValidate)
 
 // validateToPromise :: Object -> Promise
 export const validateToPromise = compose(eitherToPromise, validateToEither)
