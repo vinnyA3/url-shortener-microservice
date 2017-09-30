@@ -2,7 +2,7 @@
 import { spawnSync } from 'child_process'
 import UrlData from '../models/Url'
 import utils from '../utils'
-import { compose, prop, curry, chain } from 'ramda'
+import { compose, prop, curry, chain, isNil, isEmpty, or } from 'ramda'
 import { gets, is, maybeToEither } from 'sanctuary'
 
 const { then } = utils
@@ -23,6 +23,10 @@ const open = urlData => {
   return urlData
 }
 
-const fetchAndOpenUrl = compose(then(open), fetchUrl)
+const wasFound = data => new Promise((resolve, reject) =>
+  or(isNil(data), isEmpty(data))
+    ? reject(new Error('url not found!')) : resolve(data))
+
+const fetchAndOpenUrl = compose(then(open), then(wasFound), fetchUrl)
 
 export default fetchAndOpenUrl
