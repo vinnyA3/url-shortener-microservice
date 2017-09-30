@@ -9,25 +9,19 @@ const UrlSchema = new Schema({
   shortenedUrl: { type: String }
 })
 
-const Url = mongoose.model('Url', UrlSchema)
-
 UrlSchema.pre('save', function (next) {
   const self = this
 
-  const genUniqueShortUrl = async (rand = utils.getRandom(1000, 9999)) => {
-    const searchShortUrl = await Url.findOne({ shortenedUrl: rand })
-    if (compose(not, isNil)(searchShortUrl)) {
-      await genUniqueShortUrl()
-    } else {
-      self.shortenedUrl = `${rand}`
-      next()
-    }
-  }
   ifElse(
-    compose(not, isNil, prop('shortenedUrl')),
-    next(),
-    genUniqueShortUrl()
-  )
+    compose(isNil, prop('shortenedUrl')),
+    genShortUrl,
+    next
+  )(self)
+
+  function genShortUrl (doc) {
+    doc.shortenedUrl = `${utils.genRandom(1000, 9999)}`
+    next()
+  }
 })
 
-module.exports = Url
+module.exports = mongoose.model('Url', UrlSchema)
