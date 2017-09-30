@@ -10,14 +10,14 @@ export default (app, express) => {
 
   router.route(/^(?:\/)([\D]+)$/)
     .get((req, res) => compose(
-      catchP(err => res.send(err)),
+      catchP(err => res.status(500).send({ err: err.message })),
       then(data => res.status(200).send(data)),
       handlers.getShortenedUrl
     )(req))
 
   router.route(/^(?:\/)(\d+)$/)
     .get((req, res) => compose(
-      catchP(err => res.send(err)),
+      catchP(err => res.status(500).send({ err: err.message })),
       then(data => res.status(200).send(data)),
       handlers.retrieveUrl
     )(req))
