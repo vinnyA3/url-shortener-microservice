@@ -13,7 +13,7 @@ export const catchP = curry((fn, thenable) => thenable.catch(fn))
 
 // eitherToPromise :: Either -> Promise
 export const eitherToPromise = e => new Promise((resolve, reject) =>
-either(v => reject(new Error(v)), resolve, e))
+  either(v => reject(new Error(v)), resolve, e))
 
 // testPattern :: (RegEx -> String) -> Boolean
 export const testPattern = curry((pattern, str) => pattern.test(str))
