@@ -1,18 +1,47 @@
 const webpack = require('webpack');
 const { port } = require('./config')
+const path = require('path')
 
 module.exports = {
-	entry: './src/index.js',
+	entry: './src/index',
 	output: {
-        path: __dirname + '/public',
+        path: path.resolve(__dirname, '/public'),
 		filename: 'bundle.js',
 		publicPath: `http://localhost:${port}/`
 	},
+  devtool: 'cheap-eval-source-map',
+  target: 'web',
+  resolve: {
+    modules: [
+      'node_modules',
+      path.resolve(__dirname, 'src')
+    ],
+    extensions: ['.js', '.jsx']
+  },
 	module: {
-		loaders: [{
-			test: /\.js$/,
-			loader: 'babel-loader'
-		}]
+		loaders: [
+      {
+			  test: /\.jsx?$/,
+			  loader: 'babel-loader'
+		  },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' },
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: [
+                path.resolve(__dirname, 'src/styles/utils/_mixins.scss'),
+                path.resolve(__dirname, 'src/styles/utils/_extends.scss')
+              ]
+            }
+          }
+        ]
+      }
+    ]
 	},
 	devServer: {
 		contentBase: './',
