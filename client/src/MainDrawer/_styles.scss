@@ -1,0 +1,14 @@
+$drawer-h: 100%;
+$drawer-w : 50%;
+
+.main-drawer {
+  height: $drawer-w;
+  width: $drawer-h;
+  background: rebeccapurple;
+  margin: 0;
+
+  @include break(sm) {
+    height: $drawer-h;
+    width: $drawer-w;
+  }
+}

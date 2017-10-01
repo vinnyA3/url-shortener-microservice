@@ -1,0 +1,10 @@
+$base-font-family: Helvetica, sans-serif;
+$base-heading-font-family: $base-font-family;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $base-heading-font-family;
+}
+
+p, li, button, a {
+  font-family: $base-font-family;
+}
