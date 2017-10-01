@@ -1,0 +1,51 @@
+{
+  "name": "url-shortener-client",
+  "version": "0.0.1",
+  "description": "a client to interact with url-shortener-microservice",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "webpack-dev-server --quiet --config webpack.config.js --host 0.0.0.0",
+    "build": "webpack -p --config webpack.conf.js",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "keywords": [
+    "inferno",
+    "jsx",
+    "most-js",
+    "microservice"
+  ],
+  "author": "vinnyA3",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vinnyA3/url-shortener-microservice/issues"
+  },
+  "homepage": "https://github.com/vinnyA3/url-shortener-microservice/README",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-inferno": "^3.2.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.6.1",
+    "eslint-config-inferno-app": "^4.2.0",
+    "glob": "^7.1.2",
+    "inferno-devtools": "^3",
+    "url": "^0.11.0",
+    "webpack": "3.5.6",
+    "webpack-dev-server": "2.7.1"
+  },
+  "dependencies": {
+    "history": "^4.7.2",
+    "inferno": "^3",
+    "inferno-component": "^3",
+    "inferno-create-element": "^3",
+    "inferno-router": "^3"
+  }
+}
