@@ -5,7 +5,7 @@ const path = require('path')
 module.exports = {
 	entry: './src/index',
 	output: {
-        path: path.resolve(__dirname, '/public'),
+    path: path.resolve(__dirname, '/public'),
 		filename: 'bundle.js',
 		publicPath: `http://localhost:${port}/`
 	},
@@ -22,10 +22,12 @@ module.exports = {
 		loaders: [
       {
 			  test: /\.jsx?$/,
+        exclude: /node_modules/,
 			  loader: 'babel-loader'
 		  },
       {
         test: /\.scss$/,
+        exclude: /node_modules/,
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },
