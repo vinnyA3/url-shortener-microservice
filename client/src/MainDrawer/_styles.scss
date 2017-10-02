@@ -1,14 +1,10 @@
 $drawer-h: 100%;
-$drawer-w : 50%;
+$drawer-w: 100%;
 
 .main-drawer {
-  height: $drawer-w;
-  width: $drawer-h;
+  @include flex($justify: center, $align: center);
+  height: $drawer-h;
+  width: $drawer-w;
   background: rebeccapurple;
   margin: 0;
-
-  @include break(sm) {
-    height: $drawer-h;
-    width: $drawer-w;
-  }
 }
