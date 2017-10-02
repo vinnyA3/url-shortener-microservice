@@ -32,6 +32,7 @@ const fetchStream = compose(fromPromise, aFetch)
 // EPICS
 export const fetchShortUrlEpic = compose(
   map(fetchDataFulfilled),
+  map(({ url, shortenedUrl }) => ({ url, shortenedUrl })),
   map(prop('data')),
   chain(fetchStream),
   map(prop('payload')),
