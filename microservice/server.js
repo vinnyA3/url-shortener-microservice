@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
 import morgan from 'morgan'
 // api routes import
 import ApiRoutes from './routes/ApiRoutes'
@@ -10,6 +11,8 @@ const app = express()
 // connect to mongoose db and set promise lib
 mongoose.connect(db)
 mongoose.Promise = global.Promise
+// enable cors
+app.use(cors())
 // set up morgan logger
 app.use(morgan('dev'))
 // include api routes
