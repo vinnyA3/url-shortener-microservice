@@ -1,8 +1,4 @@
 .wrapper {
   @extend .full-scale;
-  @include flex($justify: flex-start, $direction: column)
-
-  @include break(sm) {
-    @include flex($justify: flex-start, $align: center, $direction: row); 
-  }
+  @include flex($justify: flex-start, $align: center, $direction: row); 
 }
