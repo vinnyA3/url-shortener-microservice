@@ -1,9 +1,18 @@
+import Component from 'inferno-component'
+import {connect} from  'inferno-redux'
 import './_styles.scss'
 
-const ResponseWindow = () => {
-  return (
-    <div className='response-window'></div>
-  )
+class ResponseWindow extends Component {
+  render({shortUrl}) {
+    return (
+      <div className='response-window'>
+        {JSON.stringify(shortUrl.data, null, 2)}
+      </div>
+    )
+  }
 }
 
-export default ResponseWindow
+export default connect(
+  ({shortUrl}) => ({shortUrl}),
+  null
+)(ResponseWindow)
