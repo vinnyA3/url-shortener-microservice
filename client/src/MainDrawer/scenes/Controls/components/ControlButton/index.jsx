@@ -1,6 +1,6 @@
-const ControlButton = () => {
+const ControlButton = ({getShortenedUrl}) => {
   return (
-    <button>Shorten</button>
+    <button onClick={getShortenedUrl}>Shorten</button>
   )
 }
 
