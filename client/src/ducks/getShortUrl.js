@@ -1,7 +1,7 @@
 import { FETCH_DATA, FETCH_DATA_FULFILLED } from './types'
 import { fromPromise } from 'most'
 import { select } from 'redux-most'
-import { compose, tap, prop } from 'ramda'
+import { compose, prop } from 'ramda'
 import { get } from 'axios'
 import {
   curriedMap as map,
@@ -16,24 +16,24 @@ export default (state={}, action) => {
     case FETCH_DATA:
       return {}
     case FETCH_DATA_FULFILLED:
-      return {
-        ...state,
-        data: action.payload
-      }
+      return { ...state, data: action.payload }
     default:
       return state
   }
 }
 
+// Helpers
+// aFetch :: String -> Promise
 const aFetch = query => get(`http://localhost:8080/api/${query}`)
 
-const fetchStream = compose(fromPromise, tap(console.log), aFetch)
+// fetchStream :: String -> Observable<Promise>
+const fetchStream = compose(fromPromise, aFetch)
 
 // EPICS
 export const fetchShortUrlEpic = compose(
   map(fetchDataFulfilled),
   map(prop('data')),
   chain(fetchStream),
-  map(action => action.payload),
+  map(prop('payload')),
   select(FETCH_DATA)
 )
