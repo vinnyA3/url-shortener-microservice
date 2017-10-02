@@ -1,6 +1,9 @@
-const ControlInput = () => {
+const ControlInput = ({updateInput}) => {
   return (
-    <input placeholder='Your Url Here...'/>
+    <input 
+      placeholder='Your Url Here...'
+      onInput={updateInput}
+    />
   )
 }
 
