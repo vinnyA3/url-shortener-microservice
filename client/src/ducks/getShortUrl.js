@@ -1,6 +1,6 @@
 import { FETCH_DATA, FETCH_DATA_FULFILLED, FETCH_DATA_REJECTED } from './types'
 import { fromPromise, of as _of }  from 'most'
-import { selectArray } from 'redux-most'
+import { select } from 'redux-most'
 import { compose, prop, pick, path } from 'ramda'
 import { get } from 'axios'
 import {
@@ -52,5 +52,5 @@ const safeFetch = compose(recoverWith(handleError), aFetch)
 export const fetchShortUrlEpic = compose(
   chain(safeFetch),
   map(prop('payload')),
-  selectArray([FETCH_DATA, FETCH_DATA_REJECTED])
+  select(FETCH_DATA)
 )
