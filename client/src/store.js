@@ -1,9 +1,13 @@
 import { createStore, applyMiddleware } from 'redux'
-import { createEpicMiddleware } from 'redux-most'
+import { createEpicMiddleware, combineEpics } from 'redux-most'
 import rootReducer from 'ducks'
 import { fetchShortUrlEpic } from 'ducks/getShortUrl' 
 
-const epicMiddleware = createEpicMiddleware(fetchShortUrlEpic)
+const rootEpic = combineEpics([
+  fetchShortUrlEpic
+])
+
+const epicMiddleware = createEpicMiddleware(rootEpic)
 
 export default function configureStore() {
   const store = createStore(
