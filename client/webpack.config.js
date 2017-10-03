@@ -16,7 +16,11 @@ module.exports = {
       'node_modules',
       path.resolve(__dirname, 'src')
     ],
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      'react': 'inferno-compat',
+      'react-dom': 'inferno-compat'
+    }
   },
 	module: {
 		loaders: [
