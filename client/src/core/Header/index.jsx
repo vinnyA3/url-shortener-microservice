@@ -1,6 +1,15 @@
+import { Section } from 'glamorous'
+
 const Header = ({children}) => {
   return (
-    <section>{children}</section>
+    <Section
+      width='100%'
+      textAlign='center'
+      paddingTop='10%'
+      background='#191919'
+    >
+      {children}
+    </Section>
   )
 }
 
