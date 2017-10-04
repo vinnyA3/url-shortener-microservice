@@ -1,6 +1,20 @@
+import { Button } from 'glamorous'
+
 const ControlButton = ({getShortenedUrl}) => {
   return (
-    <button onClick={getShortenedUrl}>Shorten</button>
+    <Button 
+      border='.02em solid orange'
+      color='#fff'
+      background='orange'
+      textTransform='uppercase'
+      fontWeight='bold'
+      borderTopRightRadius='.4em'
+      borderBottomRightRadius='.4em'
+      padding='1em 2em'
+      onClick={getShortenedUrl}
+    >
+      Shorten
+    </Button>
   )
 }
 
