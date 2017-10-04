@@ -1,10 +1,10 @@
 // main global styles
 import 'styles/_main.scss'
+import { Div } from 'glamorous'
 // inferno module
 import {render} from 'inferno'
 import { Provider } from 'inferno-redux' 
-// components
-import Wrapper from 'core/Wrapper'
+import Header from 'core/Header'
 import MainDrawer from 'scenes/MainDrawer'
 // store
 import configureStore from './store'
@@ -14,9 +14,16 @@ const store = configureStore()
 const App = () => {
     return (
     <Provider store={store}>
-      <Wrapper>
-        <MainDrawer height='100%' width='100%' color='rebeccapurple'/>
-      </Wrapper>
+      <Div
+        display='flex'
+        flexDirection='column'
+        alignItems='center'
+        height='100%'
+        width='100%'
+      >
+        <Header ><h1>Hello Tere</h1></Header>
+        <MainDrawer height='100%' width='100%' color='#215BBB'/>
+      </Div>
     </Provider>
     )
 }
