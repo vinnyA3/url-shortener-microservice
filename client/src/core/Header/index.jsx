@@ -6,7 +6,7 @@ const Header = ({children}) => {
       width='100%'
       textAlign='center'
       paddingTop='10%'
-      background='#191919'
+      background='#ededed'
     >
       {children}
     </Section>
