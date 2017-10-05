@@ -21,7 +21,7 @@ const App = () => {
         height='100%'
         width='100%'
       >
-        <Header ><h1>Hello Tere</h1></Header>
+        <Header ><h1>Hello There!</h1></Header>
         <MainDrawer height='100%' width='100%' color='#215BBB'/>
       </Div>
     </Provider>
