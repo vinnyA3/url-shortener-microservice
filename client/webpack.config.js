@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 const { port } = require('./config')
 const path = require('path')
 
@@ -46,6 +46,24 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|jpg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              publicPath: 'assets/',
+              outputPath: 'images/'
+            }
+          },
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000 
+            }
+          }
+        ]
       }
     ]
 	},
@@ -66,4 +84,4 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin()
 	]
-};
+}
