@@ -4,7 +4,6 @@ import { Div } from 'glamorous'
 // inferno module
 import {render} from 'inferno'
 import { Provider } from 'inferno-redux' 
-import Header from 'core/Header'
 import MainDrawer from 'scenes/MainDrawer'
 // store
 import configureStore from './store'
@@ -21,7 +20,6 @@ const App = () => {
         height='100%'
         width='100%'
       >
-        <Header ><h1>Hello There!</h1></Header>
         <MainDrawer height='100%' width='100%' color='#215BBB'/>
       </Div>
     </Provider>
