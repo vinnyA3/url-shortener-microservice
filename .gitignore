@@ -2,3 +2,4 @@ node_modules
 microservice/.env
 coverage
 *.swp
+microservice/dist
