@@ -51,17 +51,7 @@ module.exports = {
         test: /\.(png|jpg)$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {
-              publicPath: 'assets/',
-              outputPath: 'images/'
-            }
-          },
-          {
             loader: 'url-loader',
-            options: {
-              limit: 10000 
-            }
           }
         ]
       }
