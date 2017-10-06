@@ -1,17 +1,26 @@
 import Component from 'inferno-component' 
 import { connect } from 'inferno-redux'
+import glamorous from 'glamorous'
+
+const Container = glamorous.div({
+  background: '#fff',
+  transition: 'all 0.4s linear',
+  color: 'black',
+  padding: '1em .8em',
+  borderRadius: '.4em'
+})
 
 class Response extends Component {
   render({shortUrl}) {
-    console.log(shortUrl)
+    const { data, err } = shortUrl
     return (
-      <div>
+      <Container>
         {
-          shortUrl.err
-            ? JSON.stringify(shortUrl.err, null, 4) 
-            : JSON.stringify(shortUrl.data, null, 4)
+          err
+            ? JSON.stringify(err, null, 4) 
+            : JSON.stringify(data, null, 4)
         }
-      </div> 
+      </Container> 
     )
   }
 }
