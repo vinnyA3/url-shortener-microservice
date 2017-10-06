@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { db } from '../../config'
+import { db } from '../../../config'
 import getShortenedUrl from '../getShortenedUrl'
 mongoose.Promise = global.Promise
 

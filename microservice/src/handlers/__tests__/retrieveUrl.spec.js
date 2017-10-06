@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { db } from '../../config'
+import { db } from '../../../config'
 import Url from '../../models/Url'
 import retrieveUrl from '../retrieveUrl'
 mongoose.Promise = global.Promise

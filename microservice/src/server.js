@@ -5,7 +5,7 @@ import morgan from 'morgan'
 // api routes import
 import ApiRoutes from './routes/ApiRoutes'
 // export port & db uri
-import { port, db } from './config'
+import { port, db } from '../config'
 // define app
 const app = express()
 // connect to mongoose db and set promise lib
