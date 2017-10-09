@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 import utils from '../../utils'
 import { not, compose, isNil, ifElse, prop } from 'ramda'
+// This var introduces an additional side effect into our 'relatively' pure
+// genUniqueShortUrl function located in the sole pre-save hook
+import { hostname } from '../../../config'
 
 const {Schema} = mongoose
 
@@ -24,7 +27,7 @@ UrlSchema.pre('save', function (next) {
     if (compose(not, isNil)(query)) {
       await genUniqueShortUrl(doc)
     } else {
-      doc.shortenedUrl = `${rand}`
+      doc.shortenedUrl = `${hostname}/${rand}`
       next()
     }
   }
