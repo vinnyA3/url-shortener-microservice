@@ -2,14 +2,22 @@
 import { spawnSync } from 'child_process'
 import UrlData from '../models/Url'
 import utils from '../utils'
-import { compose, prop, curry, chain, isNil, isEmpty, or } from 'ramda'
+import { compose, prop, curry, chain, map, isNil, isEmpty, or } from 'ramda'
 import { gets, is, maybeToEither } from 'sanctuary'
+// this introduces a minor side effect (reading from external var)
+import { hostname } from '../../config'
 
 const { then } = utils
 
 const safeGetAndIsString = req => gets(is(String), ['params', '0'], req)
 
-const toEither = compose(maybeToEither('Not a valid short url!'), safeGetAndIsString)
+const prefixUrl = shortUrl => `${hostname}/${shortUrl}`
+
+const toEither = compose(
+  maybeToEither('Not a valid short url!'),
+  map(prefixUrl),
+  safeGetAndIsString
+)
 
 const find = curry((db, shortenedUrl) =>
   db.findOne({ shortenedUrl: shortenedUrl }))
