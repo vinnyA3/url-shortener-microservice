@@ -24,3 +24,4 @@ I aimed to create a service that is fault-tolerant, pure, and easy to reason abo
 6. Add pretty client
 7. refactor dir structures
 8. add load balancing with clusters
+0. configure docker
