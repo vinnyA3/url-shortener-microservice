@@ -2,6 +2,7 @@
 
 import { curry, prop } from 'ramda'
 import { toEither, either } from 'sanctuary'
+import RandExp from 'randexp'
 
 // getPropValue :: (String -> Object) -> Either
 export const safeGetProp = curry((p, obj) =>
@@ -20,6 +21,4 @@ export const testPattern = curry((pattern, str) => pattern.test(str))
 
 export const alt = curry((fn1, fn2, val) => fn1(val) || fn2(val))
 
-// genRandom :: Integer, Integer -> Integer
-export const genRandom = (min, max) =>
-Math.floor(Math.random() * (max - min + 1)) + min
+export const genRandom = () => new RandExp(/[a-zA-Z\d]{5,5}/).gen()
