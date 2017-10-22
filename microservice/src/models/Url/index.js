@@ -22,7 +22,7 @@ UrlSchema.pre('save', function (next) {
     next
   )(self)
 
-  async function genUniqueShortUrl (doc, rand = utils.genRandom(1000, 9999)) {
+  async function genUniqueShortUrl (doc, rand = utils.genRandom()) {
     const query = await Url.findOne({ shortenedUrl: rand })
     if (compose(not, isNil)(query)) {
       await genUniqueShortUrl(doc)
