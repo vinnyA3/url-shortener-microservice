@@ -29,6 +29,7 @@
     "mongoose": "^4.10.4",
     "most": "^1.7.0",
     "ramda": "^0.24.1",
+    "randexp": "^0.4.6",
     "sanctuary": "^0.13.2"
   },
   "devDependencies": {
