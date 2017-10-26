@@ -9,7 +9,11 @@ import { port, db } from '../config'
 // define app
 const app = express()
 // connect to mongoose db and set promise lib
-mongoose.connect(db)
+mongoose.connect(`${db}/url-shortener-service`, {
+  autoReconnect: true,
+  reconnectTries: Number.MAX_VALUE,
+  reconnectInterval: 750
+})
 mongoose.Promise = global.Promise
 // enable cors
 app.use(cors())
