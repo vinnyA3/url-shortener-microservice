@@ -1,0 +1,15 @@
+version: "3.4"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  web:
+    environment:
+      - DB_LOCAL=mongodb://mongo:27017
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
